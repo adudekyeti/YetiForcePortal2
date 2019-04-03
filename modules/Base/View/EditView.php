@@ -1,21 +1,37 @@
 <?php
 /**
- * Edit view class
- * @package YetiForce.View
+ * Edit view class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
  */
+
 namespace YF\Modules\Base\View;
 
-use YF\Core\Request;
-use YF\Core\Api;
+use App\Api;
+use App\Request;
 
-class EditView extends Index
+class EditView extends \App\Controller\View
 {
+	/**
+	 * {@inheritdoc}
+	 */
+	public function checkPermission(Request $request)
+	{
+		parent::checkPermission($request);
+		$actionName = 'EditView';
+		if ($request->isEmpty('record')) {
+			$actionName = 'CreateView';
+		}
+		if (!\YF\Modules\Base\Model\Module::isPermitted($request->getModule(), $actionName)) {
+			throw new \App\AppException('LBL_MODULE_PERMISSION_DENIED');
+		}
+	}
 
 	/**
-	 * Process
+	 * Process.
+	 *
 	 * @param \Request $request
 	 */
 	public function process(Request $request)
@@ -63,20 +79,21 @@ class EditView extends Index
 	}
 
 	/**
-	 * Scripts
-	 * @param \YF\Core\Request $request
-	 * @return \YF\Core\Script[]
+	 * Scripts.
+	 *
+	 * @param \App\Request $request
+	 *
+	 * @return \App\Script[]
 	 */
-	public function getFooterScripts(\YF\Core\Request $request)
+	public function getFooterScripts(Request $request)
 	{
 		$headerScriptInstances = parent::getFooterScripts($request);
 		$moduleName = $request->getModule();
 		$jsFileNames = [
-			'layouts/' . \YF\Core\Viewer::getLayoutName() . "/modules/Base/resources/EditView.js",
+			'layouts/' . \App\Viewer::getLayoutName() . '/modules/Base/resources/EditView.js',
 		];
 
 		$jsScriptInstances = $this->convertScripts($jsFileNames, 'js');
-		$headerScriptInstances = array_merge($headerScriptInstances, $jsScriptInstances);
-		return $headerScriptInstances;
+		return array_merge($headerScriptInstances, $jsScriptInstances);
 	}
 }

@@ -1,23 +1,21 @@
 <?php
 /**
- * List view class
- * @package YetiForce.View
+ * List view class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
- * @author Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
+ * @author    Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
  */
+
 namespace YF\Modules\Base\View;
 
-use YF\Core;
-
-class ListView extends Index
+class ListView extends \App\Controller\View
 {
-
-	public function process(\YF\Core\Request $request)
+	public function process(\App\Request $request)
 	{
 		$module = $request->getModule();
-		$api = \YF\Core\Api::getInstance();
+		$api = \App\Api::getInstance();
 		$recordsListModel = [];
 		$recordsList = $api->call($module . '/RecordsList');
 		if (!empty($recordsList['records'])) {
@@ -29,7 +27,7 @@ class ListView extends Index
 		}
 		$viewer = $this->getViewer($request);
 		if (!isset($recordsList['headers'])) {
-			$recordsList['headers'] = array();
+			$recordsList['headers'] = [];
 		}
 		$viewer->assign('HEADERS', $recordsList['headers']);
 		$viewer->assign('RECORDS', $recordsListModel);

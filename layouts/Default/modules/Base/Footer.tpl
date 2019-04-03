@@ -1,50 +1,61 @@
 {*<!-- {[The file is published on the basis of YetiForce Public License 3.0 that can be found in the following directory: licenses/LicenseEN.txt or yetiforce.com]} -->*}
 {strip}
-	{include file=\YF\Core\Functions::templatePath("BodyRight.tpl",$MODULE_NAME)}
-</div>
-</div>
-</div>
-</div>
-</div>
-<div>
-	{assign var=COMPANIES value=$USER->getCompanies()}
-	{if $COMPANIES}
-		<div class="modal fade" id="modalSelectCompanies" tabindex="-1" role="dialog" aria-labelledby="selectCompanies">
-			<div class="modal-dialog modal-sm" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">{\YF\Core\Functions::translate('LBL_CHANGE_COMPANY')}</h4>
-					</div>
-					<div class="modal-body">
-						<select class="form-control" id="companyId">
-							{foreach item=ITEM key=KEY from=$COMPANIES}
-								<option value="{$KEY}">{$ITEM['name']}</option>
-							{/foreach}
-						</select>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary">{\YF\Core\Functions::translate('LBL_CHANGE')}</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">{\YF\Core\Functions::translate('BTN_CANCEL')}</button>
+	{include file=\App\Resources::templatePath("BodyRight.tpl",$MODULE_NAME)}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div>
+		{assign var=COMPANIES value=$USER->getCompanies()}
+		{if $COMPANIES}
+			<div class="modal fade" id="modalSelectCompanies" tabindex="-1" role="dialog"
+				 aria-labelledby="selectCompanies">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								<span class="fas fa-exchange-alt mr-1"></span>
+								{\App\Language::translate('LBL_CHANGE_COMPANY')}
+							</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+										aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<select class="form-control" id="companyId">
+								{foreach item=ITEM key=KEY from=$COMPANIES}
+									<option value="{$KEY}">{$ITEM['name']}</option>
+								{/foreach}
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="button"
+									class="btn btn-success">
+								<span class="fas fa-check mr-1"></span>
+								{\App\Language::translate('LBL_CHANGE')}
+							</button>
+							<button type="button" class="btn btn-danger"
+									data-dismiss="modal">
+								<span class="fas fa-times mr-1"></span>
+								{\App\Language::translate('BTN_CANCEL')}
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	{/if}
-
-</div>
-<footer class="footerContainer navbar-default navbar-fixed-bottom noprint">
-	<div class="footer">
-		<p>{sprintf(\YF\Core\Functions::translate('LBL_FOOTER_CONTENT',$MODULE_NAME), 'open source project' )}</p>
+		{/if}
 	</div>
-</footer>
-<div class="noprint">
-	{foreach item=SCRIPT from=$FOOTER_SCRIPTS}
-		<script src="{$SCRIPT->getSrc()}"></script>
-	{/foreach}
-</div>
-
-{include file=\YF\Core\Functions::templatePath("Log.tpl",$MODULE_NAME)}
-</body>
-</html>
+	<footer class="footerContainer d-print-none w-100">
+		<div class="footer">
+			<p>{sprintf(\App\Language::translate('LBL_FOOTER_CONTENT',$MODULE_NAME), 'open source project' )}</p>
+		</div>
+	</footer>
+	<div class="d-print-none">
+		{foreach item=SCRIPT from=$FOOTER_SCRIPTS}
+			<script src="{$SCRIPT->getSrc()}"></script>
+		{/foreach}
+	</div>
+	{include file=\App\Resources::templatePath("Log.tpl",$MODULE_NAME)}
+	</body>
+	</html>
 {/strip}

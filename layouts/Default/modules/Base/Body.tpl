@@ -1,17 +1,20 @@
 {*<!-- {[The file is published on the basis of YetiForce Public License 3.0 that can be found in the following directory: licenses/LicenseEN.txt or yetiforce.com]} -->*}
 {strip}
-	<div id="js_strings" class="hide noprint">{\YF\Core\Json::encode(\YF\Core\Language::export($MODULE_NAME, 'jsLang'))}</div>
-	<div id="pjaxContainer" class="hide noprint"></div>
-	<div class="mainPage">
-		{include file=\YF\Core\Functions::templatePath("SearchMenu.tpl",$MODULE_NAME)}
-		{include file=\YF\Core\Functions::templatePath("ActionMenu.tpl",$MODULE_NAME)}
-		<div class="mobileLeftPanel noPadding visible-phone">
-			{include file=\YF\Core\Functions::templatePath("BodyLeft.tpl",$MODULE_NAME)}
-		</div>
-		<div class="leftPanel noPadding hidden-phone">
-			{include file=\YF\Core\Functions::templatePath("BodyLeft.tpl",$MODULE_NAME)}
-		</div>
-		<div class="mainBody">
-			{include file=\YF\Core\Functions::templatePath("BodyHeader.tpl",$MODULE_NAME)}
-			{include file=\YF\Core\Functions::templatePath("BodyContent.tpl",$MODULE_NAME)}
+<!-- tpl-Base-Body -->
+<div id="js_strings"
+	 class="d-none d-print-none">{\App\Json::encode(\App\Language::export($MODULE_NAME, 'js'))}</div>
+<div id="pjaxContainer" class="d-none d-print-none"></div>
+<div class="mainPage">
+	{include file=\App\Resources::templatePath("SearchMenu.tpl",$MODULE_NAME)}
+	{include file=\App\Resources::templatePath("ActionMenu.tpl",$MODULE_NAME)}
+	<div class="mobileLeftPanel p-0 visible-phone">
+		{include file=\App\Resources::templatePath("BodyLeft.tpl",$MODULE_NAME)}
+	</div>
+	<div class="leftPanel p-0 hidden-phone">
+		{include file=\App\Resources::templatePath("BodyLeft.tpl",$MODULE_NAME)}
+	</div>
+	<div class="mainBody">
+		{include file=\App\Resources::templatePath("BodyHeader.tpl",$MODULE_NAME)}
+		{include file=\App\Resources::templatePath("BodyContent.tpl",$MODULE_NAME)}
+		<!-- /tpl-Base-Body -->
 		{/strip}

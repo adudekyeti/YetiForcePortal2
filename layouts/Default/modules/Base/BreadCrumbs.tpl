@@ -1,17 +1,17 @@
 {*<!-- {[The file is published on the basis of YetiForce Public License 3.0 that can be found in the following directory: licenses/LicenseEN.txt or yetiforce.com]} -->*}
 {strip}
-	<div class="breadCrumbs" >
+	<div class="breadCrumbs">
 		{if isset($BREADCRUMB_TITLE)}
-			{assign var="BREADCRUMBS" value=\YF\Core\Menu::getBreadcrumbs($BREADCRUMB_TITLE)}
+			{assign var="BREADCRUMBS" value=\App\Menu::getBreadcrumbs($BREADCRUMB_TITLE)}
 		{else}
-			{assign var="BREADCRUMBS" value=\YF\Core\Menu::getBreadcrumbs()}
+			{assign var="BREADCRUMBS" value=\App\Menu::getBreadcrumbs()}
 		{/if}
 
 		{assign var=HOMEICON value='userIcon-Home'}
 		{if !empty($BREADCRUMBS)}
 			<div class="breadcrumbsContainer">
 				<h2 class="breadcrumbsLinks textOverflowEllipsis">
-					<a href='{\YF\Core\Config::get('portalPath')}'>
+					<a href='{\App\Config::$portalUrl}'>
 						<span class="{$HOMEICON}"></span>
 					</a>
 					&nbsp;|&nbsp;

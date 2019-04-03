@@ -1,18 +1,23 @@
 {*<!-- {[The file is published on the basis of YetiForce Public License 3.0 that can be found in the following directory: licenses/LicenseEN.txt or yetiforce.com]} -->*}
 {strip}
 	<div class="contentsDiv">
-		<form class="form-horizontal recordEditView" id="EditView" name="EditView" method="post" action="index.php" enctype="multipart/form-data">
-			<div class="widget_header row">
-				<div class="col-sm-12">
-					<div class="pull-left">
-						{include file=\YF\Core\Functions::templatePath("BreadCrumbs.tpl",$MODULE_NAME)}
+		<form class="form-horizontal recordEditView" id="EditView" name="EditView" method="post" action="index.php"
+			  enctype="multipart/form-data">
+			<div class="widget_header u-remove-main-padding">
+				<div class="d-flex justify-content-between u-add-main-padding">
+					<div class="">
+						{include file=\App\Resources::templatePath("BreadCrumbs.tpl",$MODULE_NAME)}
 					</div>
 					<div class="contentHeader">
-						<span class="pull-right">
-							<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> &nbsp;<strong>{\YF\Core\Functions::translate('BTN_SAVE', $MODULE_NAME)}</strong></button>&nbsp;&nbsp;
-							<button class="btn btn-warning" type="reset" onclick="javascript:window.history.back();"><span class="glyphicon glyphicon-remove"></span> &nbsp;<strong>{\YF\Core\Functions::translate('BTN_CANCEL', $MODULE_NAME)}</strong></button>
-						</span>
-						<div class="clearfix"></div>
+						<button class="btn btn-success mr-1" type="submit">
+							<span class="fas fa-check mr-1"></span>
+							{\App\Language::translate('BTN_SAVE', $MODULE_NAME)}
+						</button>
+						<button class="btn btn-warning" type="reset"
+								onclick="javascript:window.history.back();">
+							<span class="fas fa-times mr-1"></span>
+							{\App\Language::translate('BTN_CANCEL', $MODULE_NAME)}
+						</button>
 					</div>
 				</div>
 			</div>
@@ -22,11 +27,11 @@
 			<input type="hidden" name="record" id="recordId" value="{$RECORD->getId()}">
 			{foreach item=BLOCK from=$BLOCKS}
 				{if isset($FIELDS[$BLOCK['id']])}
-					<div class="panel panel-default col-xs-12 paddingLRZero blockContainer">
-						<div class="panel-heading">{$BLOCK['name']}</div>
-						<div class="col-md-12 paddingLRZero panel-body blockContent">
+					<div class="card mb-2 blockContainer">
+						<div class="card-header">{$BLOCK['name']}</div>
+						<div class="card-body blockContent row">
 							{foreach item=FIELD from=$FIELDS[$BLOCK['id']]}
-								<div class="editFields col-sm-12 col-md-6 paddingLRZero">
+								<div class="editFields col-sm-12 col-md-6 row">
 									<div class="col-md-3 fieldLabel paddingLeft5px">
 										<label class="muted">
 											{if $FIELD->isMandatory()}<span class="redColor">*</span>{/if}
@@ -35,7 +40,7 @@
 									</div>
 									<div class="fieldValue col-md-9">
 										{assign var=FIELD value=$FIELD->set('fieldvalue',$RECORD->getRawValue($FIELD->getName()))}
-										{include file=\YF\Core\Functions::templatePath($FIELD->getTemplate(),$MODULE_NAME) FIELD_MODEL=$FIELD}
+										{include file=\App\Resources::templatePath($FIELD->getTemplate(),$MODULE_NAME) FIELD_MODEL=$FIELD}
 									</div>
 								</div>
 							{/foreach}
@@ -44,9 +49,9 @@
 				{/if}
 			{/foreach}
 		</form>
-		<div id="CoreLog" class="panel panel-primary col-xs-12 paddingLRZero blockContainer">
-			<div class="panel-heading">{\YF\Core\Functions::translate('LBL_CORE_LOG')}</div>
-			<div class="col-md-12 paddingLRZero panel-body">
+		<div id="CoreLog" class="panel panel-primary col-sm-12 px-0 blockContainer">
+			<div class="card-header">{\App\Language::translate('LBL_CORE_LOG')}</div>
+			<div class="col-md-12 px-0 card-body">
 				<ol id="CoreLogList">
 
 				</ol>
@@ -54,4 +59,3 @@
 		</div>
 	</div>
 {/strip}
-

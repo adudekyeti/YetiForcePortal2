@@ -4,14 +4,14 @@
 	{if count($LINKS) > 0}
 		{assign var=ONLY_ONE value=count($LINKS) eq 1}
 		<div class="actions">
-			<div class="{if !$ONLY_ONE}actionImages hide{/if}">
+			<div class="{if !$ONLY_ONE}actionImages d-none{/if}">
 				{foreach from=$LINKS item=LINK}
-					{include file=\YF\Core\Functions::templatePath("ButtonLink.tpl",$MODULE_NAME) BUTTON_VIEW='listViewBasic'}
+					{include file=\App\Resources::templatePath("ButtonLink.tpl",$MODULE_NAME) BUTTON_VIEW='listViewBasic'}
 				{/foreach}
 			</div>
 			{if !$ONLY_ONE}
 				<button type="button" class="btn btn-sm btn-default toolsAction">
-					<span class="glyphicon glyphicon-wrench"></span>
+					<span class="fas fa-wrench"></span>
 				</button>
 			{/if}
 		</div>

@@ -1,46 +1,33 @@
 <?php
 /**
- * Multipicklist field class
- * @package YetiForce.Field
+ * Multipicklist field class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Michał Lorencik <m.lorencik@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Michał Lorencik <m.lorencik@yetiforce.com>
  */
+
 namespace YF\Modules\Base\FieldTypes;
 
 class MultipicklistField extends BaseField
 {
-
 	/**
-	 * values list
-	 * @var array 
+	 * values list.
+	 *
+	 * @var array
 	 */
 	public $fieldValuesList;
 
 	/**
-	 * not display values list
-	 * @var array 
+	 * not display values list.
+	 *
+	 * @var array
 	 */
 	public $notDisplayValuesList;
 
 	/**
-	 * Get field values 
-	 * @return array
-	 */
-	public function getFieldValuesList()
-	{
-		if (!is_array($this->fieldValuesList)) {
-			if (!$this->isNewRecord) {
-				$this->fieldValuesList = explode(' |##| ', $this->rawValue);
-			} else {
-				$this->fieldValuesList = [];
-			}
-		}
-		return $this->fieldValuesList;
-	}
-
-	/**
-	 * Get not display values list
+	 * Get not display values list.
+	 *
 	 * @return array
 	 */
 	public function getNotDisplayValuesList()
@@ -53,5 +40,22 @@ class MultipicklistField extends BaseField
 			}
 		}
 		return $this->notDisplayValuesList;
+	}
+
+	/**
+	 * Get field values.
+	 *
+	 * @return array
+	 */
+	public function getFieldValuesList()
+	{
+		if (!is_array($this->fieldValuesList)) {
+			if (!$this->isNewRecord) {
+				$this->fieldValuesList = explode(' |##| ', $this->rawValue);
+			} else {
+				$this->fieldValuesList = [];
+			}
+		}
+		return $this->fieldValuesList;
 	}
 }

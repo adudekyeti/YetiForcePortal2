@@ -1,29 +1,29 @@
 <?php
 /**
- * Delete action class
- * @package YetiForce.Actions
+ * Delete action class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
  */
+
 namespace YF\Modules\Base\Action;
 
-use YF\Core;
-
-class ChangeCompany extends Base
+class ChangeCompany extends \App\Controller\Action
 {
-
 	/**
-	 * Process
-	 * @param \YF\Core\Request $request
+	 * Process.
+	 *
+	 * @param \App\Request $request
+	 *
 	 * @return mixed
 	 */
-	public function process(\YF\Core\Request $request)
+	public function process(\App\Request $request)
 	{
-		$userInstance = \YF\Core\User::getUser();
+		$userInstance = \App\User::getUser();
 		$userInstance->set('CompanyId', $request->get('record'));
 
-		$response = new \YF\Core\Response();
+		$response = new \App\Response();
 		$response->setResult(true);
 		$response->emit();
 	}

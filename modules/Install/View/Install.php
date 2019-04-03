@@ -1,19 +1,16 @@
 <?php
 /**
- * Install view class
- * @package YetiForce.View
+ * Install view class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Mariusz Krzaczkowski <m.krzaczkowski@yetiforce.com>
  */
+
 namespace YF\Modules\Install\View;
 
-use YF\Modules\Base\View,
-	YF\Core;
-
-class Install extends View\Index
+class Install extends \App\Controller\View
 {
-
 	public function __construct()
 	{
 		$this->exposeMethod('Step1');
@@ -25,12 +22,12 @@ class Install extends View\Index
 		return false;
 	}
 
-	public function checkPermission(\YF\Core\Request $request)
+	public function checkPermission(\App\Request $request)
 	{
 		return true;
 	}
 
-	public function preProcess(\YF\Core\Request $request, $display = true)
+	public function preProcess(\App\Request $request, $display = true)
 	{
 		$module = $request->getModule();
 		$viewer = $this->getViewer($request);
@@ -39,31 +36,31 @@ class Install extends View\Index
 		$viewer->view('InstallPreProcess.tpl', $module);
 	}
 
-	public function process(\YF\Core\Request $request)
+	public function process(\App\Request $request)
 	{
 		$module = $request->getModule();
 		$mode = $request->getMode();
 		if (!empty($mode) && $this->isMethodExposed($mode)) {
-			return $this->$mode($request);
+			return $this->{$mode}($request);
 		}
 		$this->Step1($request);
 	}
 
-	public function Step1(\YF\Core\Request $request)
+	public function Step1(\App\Request $request)
 	{
 		$module = $request->getModule();
 		$viewer = $this->getViewer($request);
 		$viewer->view('InstallStep1.tpl', $module);
 	}
 
-	public function Step2(\YF\Core\Request $request)
+	public function Step2(\App\Request $request)
 	{
 		$module = $request->getModule();
 		$viewer = $this->getViewer($request);
 		$viewer->view('InstallStep2.tpl', $module);
 	}
 
-	public function postProcess(\YF\Core\Request $request, $display = true)
+	public function postProcess(\App\Request $request, $display = true)
 	{
 		$module = $request->getModule();
 		$viewer = $this->getViewer($request);
@@ -74,36 +71,36 @@ class Install extends View\Index
 	public function setLanguage($request)
 	{
 		if ($request->get('lang')) {
-			$userInstance = \YF\Core\User::getUser();
+			$userInstance = \App\User::getUser();
 			$userInstance->set('language', $request->get('lang'));
 		}
 		return $request;
 	}
-	/**
 
-	  public function getHeaderCss(\YF\Core\Request $request)
-	  {
-	  $parentScripts = parent::getHeaderCss($request);
-	  $cssFileNames = [
-	  'libraries/Bootstrap/css/bootstrap.css',
-	  'libraries/Bootstrap/css/bootstrap-theme.css',
-	  'layouts/' . \YF\Core\Viewer::getLayoutName() . '/skins/basic/styles.css',
-	  ];
-
-	  $addScripts = $this->convertScripts($cssFileNames, 'css');
-	  $parentScripts = array_merge($parentScripts, $addScripts);
-	  return $parentScripts;
-	  }
-
-	  public function getFooterScripts(\YF\Core\Request $request)
-	  {
-	  $parentScripts = parent::getFooterScripts($request);
-	  $jsFileNames = [
-	  'libraries/Scripts/jquery/jquery.js',
-	  ];
-	  $addScripts = $this->convertScripts($jsFileNames, 'js');
-	  $parentScripts = array_merge($parentScripts, $addScripts);
-	  return $parentScripts;
-	  }
+	/*
+	 * public function getHeaderCss(\App\Request $request)
+	 * {
+	 * $parentScripts = parent::getHeaderCss($request);
+	 * $cssFileNames = [
+	 * 'libraries/Bootstrap/css/bootstrap.css',
+	 * 'libraries/Bootstrap/css/bootstrap-theme.css',
+	 * 'layouts/' . \App\Viewer::getLayoutName() . '/skins/basic/styles.css',
+	 * ];.
+	 *
+	 * $addScripts = $this->convertScripts($cssFileNames, 'css');
+	 * $parentScripts = array_merge($parentScripts, $addScripts);
+	 * return $parentScripts;
+	 * }
+	 *
+	 * public function getFooterScripts(\App\Request $request)
+	 * {
+	 * $parentScripts = parent::getFooterScripts($request);
+	 * $jsFileNames = [
+	 * 'libraries/Scripts/jquery/jquery.js',
+	 * ];
+	 * $addScripts = $this->convertScripts($jsFileNames, 'js');
+	 * $parentScripts = array_merge($parentScripts, $addScripts);
+	 * return $parentScripts;
+	 * }
 	 */
 }

@@ -1,34 +1,44 @@
 <?php
 /**
- * Delete action class
- * @package YetiForce.Actions
+ * Delete action class.
+ *
  * @copyright YetiForce Sp. z o.o.
- * @license YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
- * @author Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
+ * @license   YetiForce Public License 3.0 (licenses/LicenseEN.txt or yetiforce.com)
+ * @author    Radosław Skrzypczak <r.skrzypczak@yetiforce.com>
  */
+
 namespace YF\Modules\Base\Action;
 
-use YF\Core;
-
-class Delete extends Base
+class Delete extends \App\Controller\Action
 {
+	/**
+	 * {@inheritdoc}
+	 */
+	public function checkPermission(\App\Request $request)
+	{
+		if (!\YF\Modules\Base\Model\Module::isPermitted($request->getModule(), 'Delete')) {
+			throw new \App\AppException('LBL_MODULE_PERMISSION_DENIED');
+		}
+	}
 
 	/**
-	 * Process
-	 * @param \YF\Core\Request $request
+	 * Process.
+	 *
+	 * @param \App\Request $request
+	 *
 	 * @return mixed
 	 */
-	public function process(\YF\Core\Request $request)
+	public function process(\App\Request $request)
 	{
 		$module = $request->getModule();
 		$record = $request->get('record');
 		$result = false;
 		if ($record) {
-			$api = \YF\Core\Api::getInstance();
+			$api = \App\Api::getInstance();
 			$result = $api->call($module . '/Record/' . $record, [], 'delete');
 		}
 		if ($request->isAjax()) {
-			$response = new \YF\Core\Response();
+			$response = new \App\Response();
 			$response->setResult($result);
 			$response->emit();
 		} else {
